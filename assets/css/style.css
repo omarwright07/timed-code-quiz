@@ -8,35 +8,30 @@
     --regular-font-size: 30px;
 }
 
+/* General Styles */
 * {
-    background-color: var(--main-bg-color);
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
     font-size: var(--regular-font-size);
     box-sizing: border-box;
 }
 
-
-
-label {
-    font-size: var(--regular-font-size);
-    padding: 10px 20px 10px 0px;
-    margin: 5px 0px;
-}
-.sec-general {
-    margin: 0% 24%;
-}
-
-.sec-question {
-    margin: 0% 15% 0% 24%;
-}
-
-section {
-    background-color: pink;
-    padding-bottom: 30px;
+html{
+    background-color: var(--main-bg-color);
 }
 
 h1 {
     font-size: var(--title-font-size);
+    margin: 20px 0px;
+}
+
+h2 {
+    margin: 0px;
+}
+
+label {
+    font-size: var(--regular-font-size);
+    padding: 0px 20px 0px 0px;
+    margin: 5px 0px;
 }
 
 button {
@@ -48,51 +43,72 @@ button {
     color: var(--main-bg-color);
 }
 
+button li {
+    margin: 0px 0px 0px 20px;
+    text-align: left;
+}
+
+
+/* Utility Styles */
+.center {
+    text-align: center;
+}
+
+
+/* Header Styles */
 header {
     margin: 1.5%;
     display: flex;
     justify-content: space-between;
 }
 
-.center {
-    text-align: center;
+.view-high-score {
+    color: var(--tertiary-color);
 }
 
-.sec-question ol {
+/* Content Styles */
+section {
+    padding-bottom: 50px;
+}
+
+.art-general {
+    margin: 0% 24%;
+}
+
+.art-question {
+    margin: 0% 15% 0% 24%;
+}
+
+.art-question ol {
     padding: 0px;
+    margin: 0px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 40%;
 }
-.sec-general ol div {
-    background-color: var(--tertiary-color);
-}
-
-button li {
-    background-color: #0000;
-    margin: 0px 0px 0px 20px;
-    text-align: left;
-}
-
-.view-high-score {
-    color: var(--tertiary-color);
-}
 
 .initials-entry {
+    display: flex;
+    align-content: flex-start;
 }
 
 input {
-    margin-right: 20px;
+    margin: 5px 20px 0px 0px;
     border: 2px solid var(--quaternary-color);
     border-radius: 4px;
     width: 50%;
+    height: max-content;
 }
 
 .high-score-entry {
+    padding: 0px;
+    margin: 0px;
     background-color: var(--tertiary-color);
+    box-sizing: content-box;
 }
 
+/* Footer Style */
 footer {
     color: var(--quaternary-color);
     border-top: 2px solid var(--quaternary-color);
@@ -103,6 +119,11 @@ footer h1 {
     font-style: none;
 }
 
+/* Puesdo Classes Styles */
 button:hover {
     background-color: var(--tertiary-color);
+}
+
+.view-high-score:hover {
+    color: var(--secondary-color);
 }
