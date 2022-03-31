@@ -2,7 +2,7 @@
 // Header
 var viewHighScoreEl = document.querySelector("#view-high-score");
 var timeEl = document.querySelector("#timer");
-var timerStartValue = 75;
+var timerValue = 75;
 // Content
 var pageContentEl = document.querySelector("#content");
 var contentIntroEl = document.querySelector("#intro");
@@ -25,6 +25,25 @@ var questions = [
 ];
 // Array holds all the high scores to be stored and displayed
 var highScores = [];
+// ############################################################
+// ############################################################
+
+// Creation Functions
+
+
+
+// Trigger Functions
+// Timer Functions -------------------------------------------
+var timerSet = function () {
+    console.log("Set timer to: " + timerValue);
+    timeEl.innerHTML = "Timer: " + timerValue;
+}
+var timerStart = function () {
+    console.log("Starting Timer");
+    // if (timerValue <=)
+    timerValue--;
+    timerSet();
+}
 
 var displayHighScoreDisplay = function () {
     console.log("Displaying High Score");
@@ -32,10 +51,25 @@ var displayHighScoreDisplay = function () {
 
 var startQuiz = function () {
     console.log("Starting Quiz");
+    setInterval(timerStart, 1000);
+    console.log("Starting Timer");
+    // Removes Intro
+    contentIntroEl.remove();
 }
 
+var gameOver = function () {
+    clearInterval(timerStart);
+    var highScore = timerValue;
+    console.log("Your high score is: " + highScore);    
+}
+// ############################################################
+// ############################################################
+// "Click" Event Listeners
 buttonStartQuiz.addEventListener("click", startQuiz);
 viewHighScoreEl.addEventListener("click", displayHighScoreDisplay)
+
+timerSet();
+
 // Tools:
 // tasksCompletedEl.append(listItemEl);
 // taskSelected.remove();
@@ -67,6 +101,7 @@ viewHighScoreEl.addEventListener("click", displayHighScoreDisplay)
 // element.matches
 // js's dataset = html's data- 
 // .matches()
+
 // DOM element methods:
 // setAttribute()
 // getAttribute()
