@@ -2,7 +2,8 @@
 // Header
 var viewHighScoreEl = document.querySelector("#view-high-score");
 var timeEl = document.querySelector("#timer");
-var timerValue = 75;
+var timerValue = 3;
+var myTimer = 0;
 // Content
 var pageContentEl = document.querySelector("#content");
 var contentIntroEl = document.querySelector("#intro");
@@ -25,12 +26,60 @@ var questions = [
 ];
 // Array holds all the high scores to be stored and displayed
 var highScores = [];
+
 // ############################################################
 // ############################################################
 
 // Creation Functions
+var createQuestion = function () {
+    // Create article
+    var articleQuestionEl = document.createElement("article");
+    articleQuestionEl.className = "art-question";
+    articleQuestionEl.id = "question";
+    // All the tags inside with content
+    articleQuestionEl.innerHTML = '<h1>Commonly used data types DO NOT Include?</h1><ol><button type="button"><li>"Start Quiz"</li></button><button type="button"><li>Start Quiz</li></button><button type="button"><li>Start Quiz</li></button><button type="button"><li>Start Quiz</li></button></ol>';
+    // Appends to section for content
+    pageContentEl.appendChild(articleQuestionEl);
+}
 
+// var createArticle = function (className,idName) {
+//     var articleQuestionEl = document.createElement("article");
+//     articleQuestionEl.className = className;
+//     articleQuestionEl.id = idName;
+// }
 
+var createHighScoreSubmit = function () {
+    // Create article
+    var articleHighSubmitEl = document.createElement("article");
+    articleHighSubmitEl.className = "art-question";
+    articleHighSubmitEl.id = "high-score-submit";
+    // All the tags inside with content
+    articleHighSubmitEl.innerHTML = '<h1>All done!</h1><h2>Your final score is 22.</h2><div class="initials-entry"><label for="initials">Enter initials:</label><input type="text" name="initials"><br><br><span><button type="button">Submit</button></span></div>';
+    // Appends to section for content
+    pageContentEl.appendChild(articleHighSubmitEl);
+    // .addEventListener("submit",);
+}
+
+var createHighScoreDisplay = function () {
+    contentIntroEl.remove();
+    // Create article
+    var articleHighDisplayEl = document.createElement("article");
+    articleHighDisplayEl.className = "art-general";
+    articleHighDisplayEl.id = "high-score-display";
+// All the tags inside with content
+    articleHighDisplayEl.innerHTML = '<h1>High scores</h1><div class="high-score-entry"><ol><li>AB - 22</li><li>AB - 22</li></ol></div><div><button type="button">Go back</button><button type="button">Clear high scores</button></div>';
+    // Appends to section for content
+    pageContentEl.appendChild(articleHighDisplayEl);
+}
+
+var createQuestionResponse = function () {
+    var footerResponseEl = document.createElement("footer");
+    footerResponseEl.className = "art-question"
+    footerResponseEl.id = "response";
+    // change wrong to a variable and seperate into another function to called
+    footerResponseEl.innerHTML = "<h1>Wrong!</h1>";
+    document.querySelector("body").appendChild(footerResponseEl);
+}
 
 // Trigger Functions
 // Timer Functions -------------------------------------------
@@ -39,72 +88,41 @@ var timerSet = function () {
     timeEl.innerHTML = "Timer: " + timerValue;
 }
 var timerStart = function () {
-    console.log("Starting Timer");
-    // if (timerValue <=)
-    timerValue--;
-    timerSet();
+    if (timerValue <= 0) {
+        gameOver();
+    } else {
+        timerValue--;
+        timerSet();
+    }
 }
 
-var displayHighScoreDisplay = function () {
-    console.log("Displaying High Score");
+var saveHighScore = function () {
+    // localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// Start/End Functions -------------------------------------------
 var startQuiz = function () {
     console.log("Starting Quiz");
-    setInterval(timerStart, 1000);
     console.log("Starting Timer");
+    myTimer = setInterval(timerStart, 1000);
     // Removes Intro
     contentIntroEl.remove();
+    createQuestion();
+    createQuestionResponse();
 }
 
 var gameOver = function () {
-    clearInterval(timerStart);
+    console.log("Game Over!!");
+    clearInterval(myTimer);
+    console.log("Timer Stopped");
     var highScore = timerValue;
-    console.log("Your high score is: " + highScore);    
+    console.log("Your high score is: " + highScore);
 }
 // ############################################################
 // ############################################################
+
 // "Click" Event Listeners
 buttonStartQuiz.addEventListener("click", startQuiz);
-viewHighScoreEl.addEventListener("click", displayHighScoreDisplay)
+viewHighScoreEl.addEventListener("click", createHighScoreDisplay);
 
 timerSet();
-
-// Tools:
-// tasksCompletedEl.append(listItemEl);
-// taskSelected.remove();
-// updatedTaskArr.push();
-// var taskId = event.target.getAttribute("data-task-id");
-// tasksToDoEl.appendChild(taskSelected);
-// listItemEl.setAttribute("data-task-id", taskIdCounter)
-// var taskInfoEl = document.createElement("div");
-// localStorage.setItem("tasks", JSON.stringify(tasks));
-// var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
-// document.querySelector("input[name='task-name']").value = "";
-// document.querySelector("select[name='task-type']").selectedIndex = 0;
-// var taskInfoEl = document.createElement("div");
-// .addEventListener("submit",);
-// .addEventListener("click",);
-
-
-// Timers: 
-// #these use ms so 1000 = 1 sec
-// setInterval() ;
-// clearInterval() ;
-// setTimeout() ;
-
-// misc:
-// string.split
-// element.reset()
-// event.preventDefault();
-// data-* = creates custom data attributes
-// element.matches
-// js's dataset = html's data- 
-// .matches()
-
-// DOM element methods:
-// setAttribute()
-// getAttribute()
-// removeAttribute()
-// remove()
-// matches()
