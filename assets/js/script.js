@@ -1,59 +1,75 @@
-var buttonE1 = document.querySelector("#save-task");
-var tasksToDoEl = document.querySelector("#task-to-do");
-var formEl = document.querySelector("#task-form");
-var pageContentEl = document.querySelector("#page-content");
-var tasksInProgressEl = document.querySelector("#tasks-in-progress");
-var tasksCompletedEl = document.querySelector("#tasks-completed");
-var taskIdCounter = 0;
+// Variables
+// Header
+var viewHighScoreEl = document.querySelector("#view-high-score");
+var timeEl = document.querySelector("#timer");
+var timerStartValue = 75;
+// Content
+var pageContentEl = document.querySelector("#content");
+var contentIntroEl = document.querySelector("#intro");
+var contentQuestionEl = document.querySelector("#question");
+var contentHighScoreSubmitEl = document.querySelector("#high-score-submit");
+var contentHighScoreDisplayEl = document.querySelector("#high-score-display");
+var buttonStartQuiz = document.querySelector("#btn-start-quiz");
+// Footer
+var responseEl = document.querySelector("#response");
+// Object that holds array of every question property
+var questions = [
+    {
+        question: 0,
+        answer1: 0,
+        answer2: 0,
+        answer3: 0,
+        answer4: 0,
+        correctAnswer: 0,
+    }
+];
+// Array holds all the high scores to be stored and displayed
+var highScores = [];
 
-var task = [];
+var displayHighScoreDisplay = function () {
+    console.log("Displaying High Score");
+}
 
-var taskNameInput = document.querySelector("input[name='task-name']").value;
-var taskTypeInput = document.querySelector("select[name='task-type']").value;
+var startQuiz = function () {
+    console.log("Starting Quiz");
+}
 
-document.querySelector("input[name='task-name']").value = "";
-document.querySelector("select[name='task-type']").selectedIndex = 0;
-
+buttonStartQuiz.addEventListener("click", startQuiz);
+viewHighScoreEl.addEventListener("click", displayHighScoreDisplay)
 // Tools:
-tasksCompletedEl.append(listItemEl);
-taskSelected.remove();
-updatedTaskArr.push();
-var taskId = event.target.getAttribute("data-task-id");
-tasksToDoEl.appendChild(taskSelected);
-listItemEl.setAttribute("data-task-id", taskIdCounter)
-var taskInfoEl = document.createElement("div");
-localStorage.setItem("tasks", JSON.stringify(tasks));
-var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
-document.querySelector("input[name='task-name']").value = "";
-document.querySelector("select[name='task-type']").selectedIndex = 0;
-var taskInfoEl = document.createElement("div");
-.addEventListener("submit",);
-.addEventListener("click",);
+// tasksCompletedEl.append(listItemEl);
+// taskSelected.remove();
+// updatedTaskArr.push();
+// var taskId = event.target.getAttribute("data-task-id");
+// tasksToDoEl.appendChild(taskSelected);
+// listItemEl.setAttribute("data-task-id", taskIdCounter)
+// var taskInfoEl = document.createElement("div");
+// localStorage.setItem("tasks", JSON.stringify(tasks));
+// var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+// document.querySelector("input[name='task-name']").value = "";
+// document.querySelector("select[name='task-type']").selectedIndex = 0;
+// var taskInfoEl = document.createElement("div");
+// .addEventListener("submit",);
+// .addEventListener("click",);
 
 
-Timers: 
-#these use ms so 1000 = 1 sec
-setInterval() ;
-clearInterval() ;
-setTimeout() ;
+// Timers: 
+// #these use ms so 1000 = 1 sec
+// setInterval() ;
+// clearInterval() ;
+// setTimeout() ;
 
-misc:
-string.split
-element.reset()
-
-event.preventDefault();
-
-data-* = creates custom data attributes
-
-element.matches
-
-js's dataset = html's data- 
-
-.matches()
-
-DOM element methods:
-setAttribute()
-getAttribute()
-removeAttribute()
-remove()
-matches()
+// misc:
+// string.split
+// element.reset()
+// event.preventDefault();
+// data-* = creates custom data attributes
+// element.matches
+// js's dataset = html's data- 
+// .matches()
+// DOM element methods:
+// setAttribute()
+// getAttribute()
+// removeAttribute()
+// remove()
+// matches()
