@@ -26,6 +26,7 @@ h1 {
 
 h2 {
     margin: 0px;
+    font-weight: normal;
 }
 
 label {
@@ -68,7 +69,7 @@ header {
 
 /* Content Styles */
 section {
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 }
 
 .art-general {
@@ -85,7 +86,8 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 40%;
+    min-width: 40%;
+    max-width: fit-content;
 }
 
 .initials-entry {

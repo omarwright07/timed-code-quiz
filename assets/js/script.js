@@ -10,19 +10,35 @@ var pageContentEl = document.querySelector("#content");
 // Object that holds array of every question property
 var questions = [
     {
-        question: "test question 1",
-        answers: ["test1", "test2", "test3", "test4"],
-        correctAnswer: "test1",
+        question: "Commonly used data types DO NOT Include:",
+        answers: ["strings", "booleans", "alerts", "numbers"],
+        correctAnswer: "alerts",
     },
     {
-        question: "test question 2",
-        answers: ["test1", "test2", "test3", "test4"],
-        correctAnswer: "test4",
-    }
+        question: "The condition in an if/else statement is enclosed with ____.",
+        answers: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+        correctAnswer: "parenthesis",
+    },
+    {
+        question: "Arrays in JavaScript can be used to store ____.",
+        answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        correctAnswer: "all of the above",
+    },
+    {
+        question: "String values must be enclosed within ____ when being assigned to variables.",
+        answers: ["commas", "curly brackets", "quotes", "parenthesis"],
+        correctAnswer: "quotes",
+    },
+    {
+        question: "A very useful tool used during used development and debugging for printing content to the debugger is?",
+        answers: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+        correctAnswer: "console.log",
+    },
 ];
 var questionIndex = 0;
 // Array holds all the high scores to be stored and displayed
 var highScores = [];
+var htmlHighScore = '';
 
 // ############################################################
 // ############################################################
@@ -65,6 +81,7 @@ var createArticle = function (className, idName) {
 var createIntro = function () {
     // Create article
     var articleIntroEl = createArticle("art-general center", "intro");
+    toggleViewHighScore();
     // All the tags inside with content
     articleIntroEl.innerHTML = '<h1>Coding Quiz Challenge</h1><p>Try to answer the following code-related questions within the time limit. Keep in mind that answers will penalize your score/time by ten seconds!</p><button type="button" id="btn-start-quiz">Start Quiz</button>';
 }
@@ -94,10 +111,11 @@ var createHighScoreSubmit = function () {
 var createHighScoreDisplay = function () {
     clearContent();
     clearFooter();
+    toggleViewHighScore();
     // Create article
     var articleHighDisplayEl = createArticle("art-general", "high-score-display");
     // All the tags inside with content
-    articleHighDisplayEl.innerHTML = '<h1>High scores</h1><div class="high-score-entry"><ol><li>AB - 22</li><li>AB - 22</li></ol></div><div><button type="button" id="go-back">Go back</button><button type="button" id="clear-high-scores">Clear high scores</button></div>';
+    articleHighDisplayEl.innerHTML = '<h1>High scores</h1><div class="high-score-entry"><ol>' + htmlHighScore + '</ol></div><div><button type="button" id="go-back">Go back</button><button type="button" id="clear-high-scores">Clear high scores</button></div>';
 }
 
 var createQuestionResponse = function (stringResponse) {
@@ -138,11 +156,47 @@ var timerStart = function () {
     }
 }
 
+
+// All High Score Functions -------------------------------------------
+var saveHighScore = function () {
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    buildHtmlHighScore();
+}
+
+var createHighScoreEntry = function (inputInitials) {
+    var highScoreEntry = {
+        initials: inputInitials,
+        score: timerValue,
+    };
+    highScores.push(highScoreEntry);
+    console.log(highScores);
+}
+
+var buildHtmlHighScore = function () {
+    htmlHighScore = "";
+    for (var i = 0; i < highScores.length; i++) {
+        htmlHighScore = htmlHighScore + "<li>" + highScores[i].initials + " - " + highScores[i].score + "</li>";
+    }
+}
+
+var loadHighScore = function () {
+    var savedHighScores = localStorage.getItem("highScores");
+    if (!savedHighScores) {
+        console.log("Saved High Scores not found!")
+        return false;
+    } else {
+        console.log("Saved High Scores found!")
+        highScores = JSON.parse(savedHighScores);
+        buildHtmlHighScore();
+    }
+}
+
 // Misc Functions -------------------------------------------
 var startQuiz = function () {
     timerSet();
     myTimer = setInterval(timerStart, 1000);
     clearContent();
+    toggleViewHighScore();
     createQuestion();
 }
 
@@ -164,43 +218,23 @@ var checkAnswer = function (event) {
 }
 
 // Create a hide and show "view high score"
-
-
-
-var saveHighScore = function () {
-    // localStorage.setItem("highScores", JSON.stringify(highScores));
-}
-
-var createHighScoreEntry = function (inputInitials) {
-    var highScoreEntry = {
-        initials: inputInitials,
-        score: timerValue,
-    };
-    highScores.push(highScoreEntry);
-    console.log(highScores);
-}
-
-
-
-var loadHighScore = function () {
-    // var savedHighScores = localStorage.getItem("highScores");
-    // savedHighScores = JSON.parse(savedHighScores);
-    // "<li>" + highScoresEntry[i].initials + "-" + highScoresEntry[i].initials + "</li>";
-    // loop through savedHighScores array
-    // for (var i = 0; i < savedTasks.length; i++) {
-    //     createHighScoreEntry(savedHighScores[i]);
-    // }
+var toggleViewHighScore = function () {
+    if (viewHighScoreEl.innerHTML == '' && document.querySelector("#intro") != null) {
+        viewHighScoreEl.innerHTML = 'View high scores';
+    } else {
+        viewHighScoreEl.innerHTML = '';
+    }
 }
 
 // Create a clear high score function
 var clearHighScore = function () {
-    console.log("Clearing High Scores");
     highScores = [];
-    console.log(highScores);
+    htmlHighScore = '';
     saveHighScore();
+    createHighScoreDisplay();
 }
 
-// Handlers all button clicks
+// Handles initials submissions
 var submitHandler = function () {
     var inputInitials = document.querySelector("input[name='initials']").value;
     if (!inputInitials) {
@@ -208,13 +242,13 @@ var submitHandler = function () {
         return false;
     }
     createHighScoreEntry(inputInitials);
+    saveHighScore();
     createHighScoreDisplay();
 }
 
-
+// Handles all button clicks
 var buttonHandler = function (event) {
     var targetEl = event.target.getAttribute("id");
-    console.log(targetEl);
     switch (targetEl) {
         case "btn-start-quiz":
             startQuiz();
@@ -242,7 +276,7 @@ var buttonHandler = function (event) {
 // "Click" Event Listeners
 pageContentEl.addEventListener("click", buttonHandler);
 viewHighScoreEl.addEventListener("click", createHighScoreDisplay);
-// .addEventListener("submit",);
 
 createIntro();
+loadHighScore();
 console.log(highScores);
